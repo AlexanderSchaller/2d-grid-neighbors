@@ -7,7 +7,7 @@ export default function getNeighbors<T>(grid: Array<T>, point: T): Array<T>{
     }
 
     const results: T[] = [];
-    for(let index of getNeighborIndexes(pointIndex, gridSize)){
+    for(let index of getNeighborIndices(pointIndex, gridSize)){
         addToResults(results, grid, index);
     }
     return results;
@@ -21,7 +21,7 @@ function addToResults<T>(results: any[], grid: Array<T>, targetIndex: number) {
     results.push(item);
 }
 
-function getNeighborIndexes(pointIndex: number, gridSize: number): number[]
+function getNeighborIndices(pointIndex: number, gridSize: number): number[]
 {
     const cords: [number, ((cord: number, gridSize: number, pointIndex: number) => boolean) | null][]= [
         // above
@@ -68,10 +68,10 @@ function isIndexInBounds(
 
 function checkLeftBound(cord: number, gridSize: number, pointIndex: number): boolean
 {
-    return cord % gridSize < pointIndex % gridSize;
+    return (cord % gridSize < pointIndex % gridSize);
 }
 
 function checkRightBound(cord: number, gridSize: number, pointIndex: number): boolean
 {
-    return cord % gridSize > pointIndex % gridSize;
+    return (cord % gridSize > pointIndex % gridSize);
 }
