@@ -1,13 +1,13 @@
-export default function getNeighbors<T>(grid: Array<T>, point: T): Array<T>{
+export default function getNeighbors<T>(grid: Array<T>, cell: T): Array<T>{
     const gridSize = grid.length / 2;
 
-    const pointIndex = grid.indexOf(point);
-    if(pointIndex < 0){
+    const cellIndex = grid.indexOf(cell);
+    if(cellIndex < 0){
         return [];
     }
 
     const results: T[] = [];
-    for(let index of getNeighborIndices(pointIndex, gridSize)){
+    for(let index of getNeighborIndices(cellIndex, gridSize)){
         addToResults(results, grid, index);
     }
     return results;
@@ -21,35 +21,35 @@ function addToResults<T>(results: any[], grid: Array<T>, targetIndex: number) {
     results.push(item);
 }
 
-function getNeighborIndices(pointIndex: number, gridSize: number): number[]
+function getNeighborIndices(cellIndex: number, gridSize: number): number[]
 {
-    const cords: [number, ((cord: number, gridSize: number, pointIndex: number) => boolean) | null][]= [
+    const cords: [number, ((cord: number, gridSize: number, cellIndex: number) => boolean) | null][]= [
         // above
-        [(pointIndex - gridSize - 1), checkLeftBound],
-        [(pointIndex - gridSize), null],
-        [(pointIndex - gridSize + 1), checkRightBound],
+        [(cellIndex - gridSize - 1), checkLeftBound],
+        [(cellIndex - gridSize), null],
+        [(cellIndex - gridSize + 1), checkRightBound],
 
         // horizontal
-        [(pointIndex - 1), null],
-        [(pointIndex + 1), null],
+        [(cellIndex - 1), null],
+        [(cellIndex + 1), null],
 
         // below
-        [(pointIndex + gridSize - 1), checkLeftBound],
-        [(pointIndex + gridSize), null],
-        [(pointIndex + gridSize + 1), checkRightBound]
+        [(cellIndex + gridSize - 1), checkLeftBound],
+        [(cellIndex + gridSize), null],
+        [(cellIndex + gridSize + 1), checkRightBound]
     ];
 
     return cords
         .filter(([index, boundCheck]) =>
-            isIndexInBounds(index, gridSize, boundCheck, pointIndex)
+            isIndexInBounds(index, gridSize, boundCheck, cellIndex)
         )
         .map(([index]) => index);
 }
 
 function isIndexInBounds(
     index: number, gridSize: number,
-    callback: ((cord: number, gridSize: number, pointIndex: number) => boolean) | null,
-    pointIndex: number
+    callback: ((cord: number, gridSize: number, cellIndex: number) => boolean) | null,
+    cellIndex: number
 ): boolean{
     if(index < 0){
         return false;
@@ -60,18 +60,18 @@ function isIndexInBounds(
     }
 
     if(callback !== null){
-        return callback(index, gridSize, pointIndex);
+        return callback(index, gridSize, cellIndex);
     }
 
     return true;
 }
 
-function checkLeftBound(cord: number, gridSize: number, pointIndex: number): boolean
+function checkLeftBound(cord: number, gridSize: number, cellIndex: number): boolean
 {
-    return (cord % gridSize < pointIndex % gridSize);
+    return (cord % gridSize < cellIndex % gridSize);
 }
 
-function checkRightBound(cord: number, gridSize: number, pointIndex: number): boolean
+function checkRightBound(cord: number, gridSize: number, cellIndex: number): boolean
 {
-    return (cord % gridSize > pointIndex % gridSize);
+    return (cord % gridSize > cellIndex % gridSize);
 }
