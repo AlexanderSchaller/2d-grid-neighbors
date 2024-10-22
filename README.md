@@ -1,5 +1,5 @@
 # Grid neighbor finder
-
+![](.images/grid.png)
 Library returns the neighbors of a grid represented as a 2D array **without** wrapping.
 
 ## Installing
