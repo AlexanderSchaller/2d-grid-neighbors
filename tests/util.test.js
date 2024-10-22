@@ -31,4 +31,16 @@ describe('Utils', () => {
         expect(result).toContain(5);
         expect(result).toContain(4);
     });
+
+    test('top fifth index', ()=>{
+        const result = getNeighbors(sixteenGrid, 5);
+        expect(result).toContain(0);
+        expect(result).toContain(1);
+        expect(result).toContain(2);
+        expect(result).toContain(4);
+        expect(result).toContain(6);
+        expect(result).toContain(8);
+        expect(result).toContain(9);
+        expect(result).toContain(10);
+    });
 });
