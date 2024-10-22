@@ -22,6 +22,14 @@ test('invalid grid size', () => {
     ).toThrowError();
 });
 
+test('invalid grid size', () => {
+    expect(
+        ()=>{
+            getNeighbors([0,1,2,3,4,5], 0)
+        }
+    ).toThrowError();
+});
+
 describe('9 Grid Tests', () => {
     test('top left', ()=>{
         const result = getNeighbors(nineGrid, 0);

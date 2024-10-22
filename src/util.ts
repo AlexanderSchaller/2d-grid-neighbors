@@ -1,18 +1,17 @@
 export default function getNeighbors<T>(grid: Array<T>, cellIndex: number): Array<T>{
-    if(grid.length < 1 || Math.sqrt(grid.length) % 1 !== 0){
+    const rowLength = Math.sqrt(grid.length);
+    if(grid.length < 4 || rowLength % 1 !== 0){
         throw Error(
             'Grid array is an invalid length.  Your grid must have an even number of rows and columns.'
         );
     }
-
-    const gridSize = Math.sqrt(grid.length);
 
     if(cellIndex < 0 || cellIndex > (grid.length - 1)){
         throw Error('Cell index is out of bounds.');
     }
 
     const results: T[] = [];
-    for(let index of getNeighborIndices(cellIndex, gridSize)){
+    for(let index of getNeighborIndices(cellIndex, rowLength)){
         addToResults(results, grid, index);
     }
     return results;
@@ -26,57 +25,58 @@ function addToResults<T>(results: any[], grid: Array<T>, targetIndex: number) {
     results.push(item);
 }
 
-function getNeighborIndices(cellIndex: number, gridSize: number): number[]
+function getNeighborIndices(cellIndex: number, rowLength: number): number[]
 {
-    const cords: [number, ((cord: number, gridSize: number, cellIndex: number) => boolean) | null][]= [
+    const cords: [number, ((cord: number, rowLength: number, cellIndex: number) => boolean) | null][]= [
         // above
-        [(cellIndex - gridSize - 1), checkLeftBound],
-        [(cellIndex - gridSize), null],
-        [(cellIndex - gridSize + 1), checkRightBound],
+        [(cellIndex - rowLength - 1), checkLeftBound],
+        [(cellIndex - rowLength), null],
+        [(cellIndex - rowLength + 1), checkRightBound],
 
         // horizontal
         [(cellIndex - 1), null],
         [(cellIndex + 1), null],
 
         // below
-        [(cellIndex + gridSize - 1), checkLeftBound],
-        [(cellIndex + gridSize), null],
-        [(cellIndex + gridSize + 1), checkRightBound]
+        [(cellIndex + rowLength - 1), checkLeftBound],
+        [(cellIndex + rowLength), null],
+        [(cellIndex + rowLength + 1), checkRightBound]
     ];
 
     return cords
         .filter(([index, boundCheck]) =>
-            isIndexInBounds(index, gridSize, boundCheck, cellIndex)
+            isIndexInBounds(index, rowLength, boundCheck, cellIndex)
         )
         .map(([index]) => index);
 }
 
 function isIndexInBounds(
-    index: number, gridSize: number,
-    callback: ((cord: number, gridSize: number, cellIndex: number) => boolean) | null,
+    index: number,
+    rowLength: number,
+    callback: ((cord: number, rowLength: number, cellIndex: number) => boolean) | null,
     cellIndex: number
 ): boolean{
     if(index < 0){
         return false;
     }
 
-    if(index >= Math.pow(gridSize, gridSize)){
+    if(index >= Math.pow(rowLength, rowLength)){
         return false;
     }
 
     if(callback !== null){
-        return callback(index, gridSize, cellIndex);
+        return callback(index, rowLength, cellIndex);
     }
 
     return true;
 }
 
-function checkLeftBound(cord: number, gridSize: number, cellIndex: number): boolean
+function checkLeftBound(cord: number, rowLength: number, cellIndex: number): boolean
 {
-    return (cord % gridSize < cellIndex % gridSize);
+    return (cord % rowLength < cellIndex % rowLength);
 }
 
-function checkRightBound(cord: number, gridSize: number, cellIndex: number): boolean
+function checkRightBound(cord: number, rowLength: number, cellIndex: number): boolean
 {
-    return (cord % gridSize > cellIndex % gridSize);
+    return (cord % rowLength > cellIndex % rowLength);
 }
