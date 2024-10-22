@@ -1,3 +1,3 @@
-import getNeighbors, {getNeighborIndices} from "./util";
+import getNeighbors, {getNeighborIndices} from "./util.js";
 
 export {getNeighbors, getNeighborIndices};
