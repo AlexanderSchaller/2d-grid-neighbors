@@ -25,7 +25,7 @@ function addToResults<T>(results: any[], grid: Array<T>, targetIndex: number) {
     results.push(item);
 }
 
-function getNeighborIndices(cellIndex: number, rowLength: number): number[]
+export function getNeighborIndices(cellIndex: number, rowLength: number): number[]
 {
     const cords: [number, ((cord: number, rowLength: number, cellIndex: number) => boolean) | null][]= [
         // above

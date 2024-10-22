@@ -1,3 +1,3 @@
-import getNeighbors from "./util";
+import getNeighbors, {getNeighborIndices} from "./util";
 
-export default getNeighbors;
+export {getNeighbors, getNeighborIndices};
