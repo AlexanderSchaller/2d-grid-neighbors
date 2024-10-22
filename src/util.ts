@@ -1,8 +1,8 @@
 export default function getNeighbors<T>(grid: Array<T>, cellIndex: number): Array<T>{
     const gridSize = grid.length / 2;
 
-    if(cellIndex < 0){
-        return [];
+    if(cellIndex < 0 || cellIndex > (grid.length - 1)){
+        throw Error('Cell index is out of bounds.');
     }
 
     const results: T[] = [];
