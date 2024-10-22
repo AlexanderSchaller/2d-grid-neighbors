@@ -1,9 +1,11 @@
 # Grid neighbor finder
+
 ![](.images/grid.png)
 
 Library returns the neighbors of a grid represented as a 2D array **without** wrapping.
 
 ## Installing
+
 ```
 npm i 2d-grid-neighbors
 ```
@@ -11,6 +13,7 @@ npm i 2d-grid-neighbors
 ## Usage
 
 Getting the **values** of the neighbors:
+
 ```typescript
 const grid = [
     'a', 'b', 'c', 'd',
