@@ -1,4 +1,10 @@
 export default function getNeighbors<T>(grid: Array<T>, cellIndex: number): Array<T>{
+    if(grid.length < 1 || Math.sqrt(grid.length) % 1 !== 0){
+        throw Error(
+            'Grid array is an invalid length.  Your grid must have an even number of rows and columns.'
+        );
+    }
+
     const gridSize = Math.sqrt(grid.length);
 
     if(cellIndex < 0 || cellIndex > (grid.length - 1)){
