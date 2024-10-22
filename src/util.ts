@@ -1,7 +1,6 @@
-export default function getNeighbors<T>(grid: Array<T>, cell: T): Array<T>{
+export default function getNeighbors<T>(grid: Array<T>, cellIndex: number): Array<T>{
     const gridSize = grid.length / 2;
 
-    const cellIndex = grid.indexOf(cell);
     if(cellIndex < 0){
         return [];
     }
